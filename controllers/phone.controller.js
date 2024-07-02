@@ -21,5 +21,26 @@ const createPhone = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+/**edit/update phone
+ *
+ * gets: id (in params) , updated phone(body)
+ *
+ * returns the updated phone
+ */
+const updatePhone = async (req, res) => {
+  try {
+    const newPhone = req.body;
+    const { id } = req.params;
+    if (!id) return res.status(400).send("Error Updating Phone");
 
-module.exports = { getAllPhones, createPhone };
+    const updatedPhone = await Phone.create(newPhone);
+
+    if (!updatedPhone) return res.status(400).send("Error Updating Phone");
+    return res.status(200).send(updatedPhone);
+  } catch (error) {
+    console.error("ERROR AT updatePhone:", error);
+    res.status(500).send("Server Error");
+  }
+};
+
+module.exports = { getAllPhones, createPhone, updatePhone };
