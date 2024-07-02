@@ -7,5 +7,5 @@ const phoneSchema = new mongoose.Schema({
   releaseYear: { type: String, require: true },
   price: { type: Number, require: true },
 });
-const Phone = mongoose.model("Phone", phoneSchemaSchema);
+const Phone = mongoose.model("Phone", phoneSchema);
 module.exports = { Phone };

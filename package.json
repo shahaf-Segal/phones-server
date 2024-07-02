@@ -1,10 +1,12 @@
 {
   "name": "phones_server",
   "version": "1.0.0",
-  "description": "server for managing interaction between phone db and front",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+		"dev": "node --watch index.js"
   },
   "author": "ShahafSegal",
   "license": "ISC",
