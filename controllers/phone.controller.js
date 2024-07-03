@@ -1,5 +1,7 @@
 const { Phone } = require("../models/phone.model");
 
+//add filter
+//add sort
 const getAllPhones = async (req, res) => {
   try {
     const allPhones = await Phone.find({});
@@ -9,7 +11,12 @@ const getAllPhones = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
-
+/**create phone
+ *
+ * gets:  new Phone(body)
+ *
+ * returns created phone
+ */
 const createPhone = async (req, res) => {
   try {
     const newPhone = req.body;
@@ -21,7 +28,7 @@ const createPhone = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
-/**edit/update phone
+/**edit/update phone with the same id
  *
  * gets: id (in params) , updated phone(body)
  *
@@ -33,7 +40,7 @@ const updatePhone = async (req, res) => {
     const { id } = req.params;
     if (!id) return res.status(400).send("Error Updating Phone");
 
-    const updatedPhone = await Phone.create(newPhone);
+    const updatedPhone = await Phone.findByIdAndUpdate(id, newPhone);
 
     if (!updatedPhone) return res.status(400).send("Error Updating Phone");
     return res.status(200).send(updatedPhone);
@@ -42,5 +49,25 @@ const updatePhone = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+/**delete phone by its id
+ *
+ * gets: id
+ *
+ * returns id
+ */
+const deletePhone = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) return res.status(400).send("Error Deleting Phone");
 
-module.exports = { getAllPhones, createPhone, updatePhone };
+    const updatedPhone = await Phone.findByIdAndDelete(id);
+
+    if (!updatedPhone) return res.status(400).send("Error Deleting Phone");
+    return res.status(200).send(id);
+  } catch (error) {
+    console.error("ERROR AT updatePhone:", error);
+    res.status(500).send("Server Error");
+  }
+};
+
+module.exports = { getAllPhones, createPhone, updatePhone, deletePhone };
