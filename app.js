@@ -7,6 +7,6 @@ const phoneRouter = require("./routes/phone.routes");
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/phone/", phoneRouter);
+app.use("/api/phones/", phoneRouter);
 
 module.exports = { app };
