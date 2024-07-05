@@ -11,6 +11,17 @@ const getAllPhones = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
+/**gets phone by id*/
+const getPhone = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const currPhone = await Phone.findById(id);
+    if (currPhone) return res.status(200).send(currPhone);
+    return res.status(404).send("Phone not found");
+  } catch (error) {}
+};
+
 /**create phone
  *
  * gets:  new Phone(body)
@@ -70,4 +81,10 @@ const deletePhone = async (req, res) => {
   }
 };
 
-module.exports = { getAllPhones, createPhone, updatePhone, deletePhone };
+module.exports = {
+  getAllPhones,
+  createPhone,
+  updatePhone,
+  deletePhone,
+  getPhone,
+};
