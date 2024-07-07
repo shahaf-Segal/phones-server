@@ -1,11 +1,16 @@
+const { getPagedArray } = require("../functions/pageFunctions");
 const { Phone } = require("../models/phone.model");
 
 //add filter
 //add sort
 const getAllPhones = async (req, res) => {
   try {
+    const { page = 1 } = req.query;
     const allPhones = await Phone.find({});
-    return res.status(200).send(allPhones);
+
+    const { phones, pages } = getPagedArray(allPhones, page);
+
+    return res.status(200).send({ phones, pages });
   } catch (error) {
     console.error("ERROR AT getAllPhones:", error);
     res.status(500).send("Server Error");
