@@ -4,10 +4,10 @@ const getPagedArray = (phoneArray, pageNumber) => {
   const currentPage = pageNumber || 1;
   const startIndex = (pageNumber - 1) * phonePerPage;
   const endIndex = startIndex + phonePerPage;
-  const filteredPhones = phoneArray.slice(startIndex, endIndex).length;
+  const filteredPhones = phoneArray.slice(startIndex, endIndex);
   const correctEndIndex = endIndex - (filteredPhones.length - phonePerPage - 1);
 
-  const total = Math.ceil(arrayLength / phonePerPage);
+  const total = Math.ceil(phoneArray.length / phonePerPage);
   return {
     phones: filteredPhones,
     pages: {
