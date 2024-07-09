@@ -1,12 +1,20 @@
 const { getPagedArray } = require("../functions/pageFunctions");
+const getSortMethod = require("../functions/phoneSortFunctions");
+const queryFilter = require("../functions/queryFilters");
 const { Phone } = require("../models/phone.model");
 
 //add filter
 //add sort
 const getAllPhones = async (req, res) => {
   try {
-    const { page = 1 } = req.query;
-    const allPhones = await Phone.find({});
+    const { page = 1, model, os, brand, sort } = req.query;
+    const findQuery = queryFilter({ model, os, brand });
+    const allPhones = await Phone.find({ ...findQuery });
+
+    const sortFunc = getSortMethod(sort);
+    if (sortFunc) {
+      allPhones.sort(sortFunc);
+    }
 
     const { phones, pages } = getPagedArray(allPhones, page);
 
@@ -74,6 +82,7 @@ const updatePhone = async (req, res) => {
 const deletePhone = async (req, res) => {
   try {
     const { id } = req.params;
+
     if (!id) return res.status(400).send("Error Deleting Phone");
 
     const updatedPhone = await Phone.findByIdAndDelete(id);
