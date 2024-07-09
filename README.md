@@ -4,6 +4,7 @@ A Node.js server to support the React-based phone directory application. This se
 
 ## Table of Contents
 - [Installation](#installation)
+- [Setup](#setup)
 - [Running the Production Server](#running-the-production-server)
 - [API Endpoints](#api-endpoints)
 
@@ -29,6 +30,14 @@ To get started with the Phone Directory Server, you need to have Node.js and npm
    ```sh
    npm install
    ```
+## Setup
+1. To Run the Server it must have A reachable DB , the .env file should contain this:
+   
+   ```sh
+   MONGO_URL=<Mongo_Url>
+   ```
+   
+    
 
 ## Running the Production Server
 
@@ -40,7 +49,7 @@ To start the server in production mode:
    npm start
    ```
 
-   The server will be running on the specified port (default is `3000`).
+   The server will be running on the specified port (default is `2511`).
 
 ## API Endpoints
 
